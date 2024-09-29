@@ -14,16 +14,31 @@ builder.Services.AddDbContext<ApplicationDbContext>(Options=>
 Options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
 new MySqlServerVersion(new Version(8, 0, 23))));
 
+//CORS problem solved (builder buildden önce eklenmesi gerekiyormuş)
+builder.Services.AddCors(options=>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder=>
+        {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 //Controller
 builder.Services.AddControllers();
 
 var app=builder.Build();
+
+
 
 //HTTP management
 if(app.Environment.IsDevelopment()){
     app.UseDeveloperExceptionPage();
 }
 
+app.UseCors("AllowAllOrigins");
 //app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();
