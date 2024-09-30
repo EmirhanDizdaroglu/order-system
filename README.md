@@ -6,7 +6,6 @@ Bu proje, bir sipariş yönetim sistemi olarak geliştirilmiştir. Kullanıcıla
 
 - [Kullanılan Teknolojiler](#kullanılan-teknolojiler)
 - [Kurulum](#kurulum)
-- [Docker Kullanımı](#docker-kullanımı)
 - [Karşılaşılan Problemler ve Çözümleri](#karşılaşılan-problemler-ve-çözümleri)
 - [Kullanılan Paketler](#kullanılan-paketler)
 - [Kullanılan Kaynaklar](#kullanılan-kaynaklar)
@@ -26,6 +25,19 @@ Bu proje, bir sipariş yönetim sistemi olarak geliştirilmiştir. Kullanıcıla
 - **C# .NET Core**: Backend API'yi oluşturmak için kullanıldı.
 - **MySQL**: Veritabanı yönetimi için kullanıldı.
 - **RabbitMQ**: Siparişlerin işlenmesi için mesaj kuyruğu sağlandı.
+
+### Geliştirme Ortamı:
+
+- **Visual Studio Code**: Geliştirme editörü olarak kullanıldı.
+
+---
+
+### Gereksinimler:
+- **React** ve **npm** (Frontend için)
+- **C# .NET Core SDK** (Backend için)
+- **MySQL** (Veritabanı için)
+- **RabbitMQ** (Mesajlaşma sistemi için)
+- **Docker** (Tüm bileşenleri çalıştırmak için)
 
 ## Kullanılan Paketler
 
@@ -55,21 +67,8 @@ Bu proje, bir sipariş yönetim sistemi olarak geliştirilmiştir. Kullanıcıla
 - **react-scripts**: React projelerinde geliştirici araçları ve betikler sağlamak için kullanılan kütüphane.
 - **@emotion/react**: CSS-in-JS (CSS ile JavaScript) yaklaşımı ile stil oluşturmak için kullanılan kütüphane.
 - **@emotion/styled**: Styled Components ile benzer bir şekilde stilleri yönetmek için kullanılan kütüphane.
-- 
-### Geliştirme Ortamı:
-
-- **Visual Studio Code**: Geliştirme editörü olarak kullanıldı.
-
----
 
 ## Kurulum
-
-### Gereksinimler:
-- **React** ve **npm** (Frontend için)
-- **C# .NET Core SDK** (Backend için)
-- **MySQL** (Veritabanı için)
-- **RabbitMQ** (Mesajlaşma sistemi için)
-- **Docker** (Tüm bileşenleri çalıştırmak için)
 
 ### Adımlar:
 
@@ -102,7 +101,7 @@ Bu proje, bir sipariş yönetim sistemi olarak geliştirilmiştir. Kullanıcıla
      dotnet ef database update
 
 
-6. **RabbitMQ'yu çalıştırın:**
+5. **RabbitMQ'yu çalıştırın:**
     RabbitMQ'yu kurun ve yönetim paneline şu adresle erişin:
     ```bash
     http://localhost:15672
@@ -110,16 +109,16 @@ Bu proje, bir sipariş yönetim sistemi olarak geliştirilmiştir. Kullanıcıla
     - **Kullanıcı adı:** `guest`
     - **Şifre:** `guest`
 
-7. **Frontend'e erişin:**
+6. **Frontend'e erişin:**
     ```bash
     http://localhost:3000
     ```
 
-8. **Backend API'sine erişin:**
+7. **Backend API'sine erişin:**
     ```bash
     http://localhost:5000/
     ```
-9. **Projeyi Docker ile çalıştırma:**
+8. **Projeyi Docker ile çalıştırma:**
     ```bash
     docker-compose up --build
 
