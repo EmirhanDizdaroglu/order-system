@@ -1,5 +1,11 @@
-import React from 'react';
-import { Card, CardContent, CardMedia, Button, Typography } from '@mui/material';
+import React from "react";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+} from "@mui/material";
 
 const ProductCard = ({ product, addToCart }) => {
   return (
@@ -9,8 +15,8 @@ const ProductCard = ({ product, addToCart }) => {
         <CardMedia
           component="img"
           height="140"
-          image={product.image}  // Backend'den gelen image URL'si
-          alt={product.name}     // Ürün adı alt metin olarak gösteriliyor
+          image={product.image} // Backend'den gelen image URL'si
+          alt={product.name} // Ürün adı alt metin olarak gösteriliyor
         />
       )}
       <CardContent>

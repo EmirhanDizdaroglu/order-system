@@ -1,19 +1,26 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public class OrderItem
+namespace OrderSystem.Models
 {
-    [Key] //Primary Key
-    public int Id { get; set; }
+    public class OrderItem
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
-    [Required]
-    public int Quantity{get; set; }
+        [Required]
+        public int Quantity { get; set; }
 
-    //foreign Key - Order
-    public int OrderId { get; set; } 
-    public Order Order {get; set; }=null!;//sipariş ile ilişki
+        [Required]
+        [ForeignKey("Order")]
+        [Column("order_id")]
+        public int OrderId { get; set; } // Correct field name
+        public Orders Order { get; set; } = null!;
 
-    //foreign Key -product
-    public int? ProductId { get; set; }//ürün silindiğinde nullable olacak
-    public Product? Product {get; set; } //ilişkili ürün
+        [ForeignKey("Product")]
+        [Column("product_id")]
+        public int? ProductId { get; set; } // Correct field name
+        public Product? Product { get; set; }
+    }
 }

@@ -1,26 +1,37 @@
 using Microsoft.EntityFrameworkCore;
+using OrderSystem.Models; // Modellerin namespace'i
 
-
-public class ApplicationDbContext : DbContext{
+public class ApplicationDbContext : DbContext
+{
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-    :base(options){}
-    //veri tabanı tablosu için datasetler
-    public DbSet<Product> Products {get;set; }
-    public DbSet<Order> Orders {get;set; }
-    public DbSet<OrderItem> OrderItems {get;set; }
+        : base(options) { }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder){
-        //Product-OrderItem ilişkisinde Cascade ve SetNull işlemleri yapıyoruz.
+    // Veritabanı tabloları
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Orders> Orders { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // İlişkiler ve silme davranışları (DeleteBehavior)
+        
+        // OrderItem ve Product ilişkisi
         modelBuilder.Entity<OrderItem>()
-            .HasOne(oi=>oi.Product)
+            .HasOne(oi => oi.Product)
             .WithMany()
-            .HasForeignKey(oi=>oi.ProductId)
-            .OnDelete(DeleteBehavior.SetNull); //When the product deleted the product id will be null
+            .HasForeignKey(oi => oi.ProductId)
+            .OnDelete(DeleteBehavior.SetNull);  // Product silindiğinde ProductId null olur
 
+        // OrderItem ve Order ilişkisi
         modelBuilder.Entity<OrderItem>()
             .HasOne(oi => oi.Order)
-            .WithMany(o=>o.Items)
-            .HasForeignKey(oi=>oi.OrderId)
-            .OnDelete(DeleteBehavior.Cascade);//when de order deleted the orderitems record will be delete.
+            .WithMany(o => o.Items)
+            .HasForeignKey(oi => oi.OrderId)
+            .OnDelete(DeleteBehavior.Cascade);  // Order silindiğinde ilgili OrderItems silinir
+
+        // Orders tablosundaki Status alanı için enum tipini belirtiyoruz
+        modelBuilder.Entity<Orders>()
+            .Property(o => o.Status)
+            .HasConversion<string>();  // Enum'un string olarak saklanmasını sağlıyor
     }
 }

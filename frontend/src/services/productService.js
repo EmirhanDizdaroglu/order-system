@@ -1,47 +1,51 @@
-import axios from 'axios';
+import axios from "axios";
 
-const BASE_URL='http://localhost:5000/api/products';
+// Axios örneği oluşturuyoruz, zaman aşımı ve temel URL ile
+const axiosInstance = axios.create({
+  baseURL: "http://localhost:5000/api/products",
+  timeout: 5000, // 5 saniyelik zaman aşımı
+});
 
-//Tüm ürünleri getirme get
-export const getProducts=async()=>{
-    try{
-        const response=await axios.get(BASE_URL);
-        return response.data;
-    }catch(error){
-        console.error('Error fetching products:',error);
-        throw error;
-}
-};
-//yeni ürün ekleme add
-export const addProduct=async(newProduct)=>{
-    try{
-        const response=await axios.post(BASE_URL, newProduct);
-        return response.data;
-    }catch(error){
-        console.error('Error adding products:',error);
-        throw error;
-    }
+// Tüm ürünleri getirme (GET)
+export const getProducts = async () => {
+  try {
+    const response = await axiosInstance.get('/');
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching products:", error.response ? error.response.data : error.message);
+    throw new Error("Unable to fetch products. Please try again later.");
+  }
 };
 
-//ürün güncelleme put
+// Yeni ürün ekleme (POST)
+export const addProduct = async (newProduct) => {
+  try {
+    const response = await axiosInstance.post('/', newProduct);
+    return response.data;
+  } catch (error) {
+    console.error("Error adding product:", error.response ? error.response.data : error.message);
+    throw new Error("Unable to add product. Please check your input and try again.");
+  }
+};
+
+// Ürün güncelleme (PUT)
 export const updateProduct = async (id, updatedProduct) => {
-    try {
-        const response = await axios.put(`${BASE_URL}/${id}`, updatedProduct);
-        return response.data;
-    } catch (error) {
-        console.error('Error updating product:', error);
-        throw error;
-    }
+  try {
+    const response = await axiosInstance.put(`/${id}`, updatedProduct);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating product:", error.response ? error.response.data : error.message);
+    throw new Error("Unable to update product. Please try again later.");
+  }
 };
 
-//ürün silme delete
-export const deleteProduct=async(id)=>{
-    try{
-        const response=await axios.delete(`${BASE_URL}/${id}`);
-        return response.data;
-    }catch(error){
-        console.error('Error deleting product:', error);
-        throw error;
-    }
+// Ürün silme (DELETE)
+export const deleteProduct = async (id) => {
+  try {
+    const response = await axiosInstance.delete(`/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting product:", error.response ? error.response.data : error.message);
+    throw new Error("Unable to delete product. Please try again later.");
+  }
 };
-
